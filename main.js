@@ -10,6 +10,7 @@ var mouse = {
     x: null,
     y: null
 }
+
 document.addEventListener('keydown',function(event){
     if(event.keyCode == 40){
         up = true
@@ -35,7 +36,17 @@ document.addEventListener('keyup',function(event){
 canvas.width = 800
 canvas.height = 600
 
+//GAME OVER Function
 
+function GameOver(){
+    ctx.font = "30px Arial";
+    ctx.fillText("Game Over",canvas.width/2 - 70,canvas.height/2);
+    ctx.fillStyle = 'white'
+    setTimeout(()=>{ 
+    this.x = canvas.width /2
+    this.y = canvas.height /2
+    }, 4000)
+}
 //Calculate Position of the mouse
     function calculateMousePos(event){
         //Measure Size of our canvas
@@ -60,7 +71,9 @@ function CanvasProps(){
 
 var pdlLeft = new paddleLeft(0, (canvas.height/2)-80/2, 10, paddleHeight, 10)
 var pdlRight = new paddleRight(canvas.width - 10,0, 10, paddleHeight, 10)
-var ball = new Ball(canvas.width/2, canvas.height/2, 5, 5, 10)
+var ball = new Ball(canvas.width/2, canvas.height/2, -5, 5, 10)
+
+
 function animate(){
     requestAnimationFrame(animate)
     ctx.clearRect(0,0, canvas.width,canvas.height)
@@ -68,5 +81,21 @@ function animate(){
     pdlLeft.update()
     ball.update()
     pdlRight.update()
+    if(ball.x < 0 + ball.radius){
+        if(ball.y  > pdlLeft.y  && ball.y < pdlLeft.y + paddleHeight){
+            ball.mx = -ball.mx
+    }else{
+        GameOver()
+    }
+    console.log(pdlRight.y);
+    
+    }
+    if(ball.x > canvas.width + ball.radius){
+        if(ball.y  > pdlRight.y  && ball.y < pdlRight.y + paddleHeight){
+            ball.mx = -ball.mx
+    }else{
+        GameOver()
+    }
+    }
 }
 animate()
