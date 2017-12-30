@@ -9,7 +9,7 @@ this.radius = radius
     this.draw = function(){
         ctx.beginPath()
         ctx.arc(this.x,this.y,this.radius,0,Math.PI * 2,false)
-        ctx.fillStyle = 'red'
+        ctx.fillStyle = '#E8501F'
         ctx.fill()
         ctx.closePath()
     }

@@ -7,7 +7,7 @@ function paddleLeft(x,y,width,height,speed){
     this.speed = speed
         this.draw = function(){
 
-            ctx.fillStyle = 'white'
+            ctx.fillStyle = '#045CA5'
             ctx.fillRect(this.x,this.y, this.width,this.height)
 
         }

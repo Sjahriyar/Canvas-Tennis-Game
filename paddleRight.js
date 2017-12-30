@@ -7,7 +7,7 @@ this.height = height
 this.speed = speed
     this.draw = function(){
 
-        ctx.fillStyle = 'red'
+        ctx.fillStyle = '#42DA43'
         ctx.fillRect(this.x,this.y, this.width,this.height)
 
     }
