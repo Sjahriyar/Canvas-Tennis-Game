@@ -10,6 +10,8 @@ var mouse = {
     x: null,
     y: null
 }
+var Player1 = 0
+var Player2 = 0
 
 document.addEventListener('keydown',function(event){
     if(event.keyCode == 40){
@@ -33,20 +35,8 @@ document.addEventListener('keyup',function(event){
     document.getElementById('msg').innerHTML = 'Your Browser Does not support Canvas.'
 }
 
-canvas.width = 800
+canvas.width = 800 
 canvas.height = 600
-
-//GAME OVER Function
-
-function GameOver(){
-    ctx.font = "30px Arial";
-    ctx.fillText("Game Over",canvas.width/2 - 70,canvas.height/2);
-    ctx.fillStyle = 'white'
-    setTimeout(()=>{ 
-    this.x = canvas.width /2
-    this.y = canvas.height /2
-    }, 4000)
-}
 
 
 //Calculate Position of the mouse
@@ -65,9 +55,19 @@ function GameOver(){
         
     }
 
+    //Canvas Page Properties
 function CanvasProps(){
     ctx.fillStyle = 'black'
     ctx.fillRect(0,0,canvas.width,canvas.height)
+    ctx.font = "20px Arial";
+    ctx.fillStyle = 'white'
+    ctx.fillText(Player1,60,60);
+    ctx.fillText(Player2,canvas.width-60,60);
+    
+}
+function BallReset(){
+    ball.x = canvas.width/2
+    ball.y = canvas.height/2
 }
 // #############################################
 
@@ -77,9 +77,9 @@ var ball = new Ball(canvas.width/2, canvas.height/2, -5, 5, 10)
 
 function computerAI(){
     let pdlRightMiddle = pdlRight.y + (paddleHeight/2)
-    if(pdlRightMiddle < ball.y){
+    if(pdlRightMiddle < ball.y -35){
         pdlRight.y += 10
-    }else{
+    }else if(pdlRightMiddle > ball.y +35){
         pdlRight.y -= 10
     }
 }
@@ -96,16 +96,18 @@ function animate(){
         if(ball.y  > pdlLeft.y  && ball.y < pdlLeft.y + paddleHeight){
             ball.mx = -ball.mx
     }else{
-        GameOver()
+
+        Player2++
+        BallReset()
     }
-    console.log(pdlRight.y);
     
     }
     if(ball.x > canvas.width + ball.radius){
         if(ball.y  > pdlRight.y  && ball.y < pdlRight.y + paddleHeight){
             ball.mx = -ball.mx
     }else{
-        GameOver()
+        Player1++
+        BallReset()
     }
     }
 }
