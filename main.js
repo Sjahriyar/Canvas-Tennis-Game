@@ -5,7 +5,7 @@ if(canvas.getContext){
 var up = false
 var paddleHeight = 80
 var down = false
-var paddleR = 200
+var paddleR = 150
 var mouse = {
     x: null,
     y: null
@@ -24,10 +24,10 @@ document.addEventListener('keyup',function(event){
         down = false
     })
 
-    document.addEventListener('mousemove',function(event){
-        var mousePos = calculateMousePos(event)
-        paddleR = mousePos.y-(paddleHeight/2)
-    })
+    // document.addEventListener('mousemove',function(event){
+    //     var mousePos = calculateMousePos(event)
+    //     paddleR = mousePos.y-(paddleHeight/2)
+    // })
 
 }else{
     document.getElementById('msg').innerHTML = 'Your Browser Does not support Canvas.'
@@ -47,6 +47,8 @@ function GameOver(){
     this.y = canvas.height /2
     }, 4000)
 }
+
+
 //Calculate Position of the mouse
     function calculateMousePos(event){
         //Measure Size of our canvas
@@ -73,10 +75,19 @@ var pdlLeft = new paddleLeft(0, (canvas.height/2)-80/2, 10, paddleHeight, 10)
 var pdlRight = new paddleRight(canvas.width - 10,0, 10, paddleHeight, 10)
 var ball = new Ball(canvas.width/2, canvas.height/2, -5, 5, 10)
 
+function computerAI(){
+    let pdlRightMiddle = pdlRight.y + (paddleHeight/2)
+    if(pdlRightMiddle < ball.y){
+        pdlRight.y += 10
+    }else{
+        pdlRight.y -= 10
+    }
+}
 
 function animate(){
     requestAnimationFrame(animate)
     ctx.clearRect(0,0, canvas.width,canvas.height)
+    computerAI()
     CanvasProps()
     pdlLeft.update()
     ball.update()

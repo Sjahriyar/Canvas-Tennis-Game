@@ -12,7 +12,7 @@ this.speed = speed
 
     }
     this.update = function(){
-        this.y = paddleR
+
         this.draw()
     }
 }
